@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import timezone
 from .models import Post
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import PhotoImage
 from .forms import PhotoImageForm
 
@@ -23,3 +23,20 @@ def image_list(request):
 def image_detail(request, pk):
   image = get_object_or_404(PhotoImage, pk=pk)
   return render(request, 'main/image_detail.html', {'image': image})
+
+def image_new(request):
+  if request.method == "POST":
+    form = PhotoImageForm(request.POST)
+    if form.is_valid():
+      image = PhotoImage()
+      print(request)
+      image.title = request.POST['title']
+      image.link = request.POST['link']
+      image.image = request.FILES['image']
+      image.author = request.user
+      image.published_date = timezone.now()
+      image.save()
+      return redirect('image_detail', pk=image.pk)
+  else:
+    form = PhotoImageForm()
+  return render(request, 'main/image_new.html', {'form': form})
