@@ -1,4 +1,22 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+    <div class="post">
+        {% if image.published_date %}
+        <div class="date">
+            {{ image.published_date }}
+        </div>
+        {% endif %}
+
+        <h2>{{ image.title }}</h2>
+
+        {% if image.image %}
+        <div class="image">
+            <img src="/{{ image.image.url }}" style="width:150px;height:auto">
+        </div>
+        {% endif %}
+
+        <p>{{ image.link }}</p>
+        
+    </div>
 {% endblock %}
