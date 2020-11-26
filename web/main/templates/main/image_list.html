@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+{% for image in images %}
+    <div class="post">
+        {% if image.image %}
+        <div class ="image">
+            <img src="/{{ image.image.url }}" style="width:300px;height:auto">
+        </div>
+        {% endif %}
+        <div class="date">
+            {{ image.published_date }}
+        </div>
+        <h1><a href="{% url 'image_detail' pk=image.pk %}">{{ image.title }}</a></h1>
+        <h2>test</h2>
+        <p>{{ image.link|linebreaksbr }}</p>
+    </div>
+{% endfor %}
+{% endblock %}

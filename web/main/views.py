@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.utils import timezone
 from .models import Post
 from django.shortcuts import render, get_object_or_404
+from .models import PhotoImage
+from .forms import PhotoImageForm
 
 # Create your views here.
 def index(request):
@@ -13,3 +15,11 @@ def index(request):
 def post_detail(request, pk):
   post = get_object_or_404(Post, pk=pk)
   return render(request, 'main/post_detail.html', {'post': post})
+
+def image_list(request):
+  images = PhotoImage.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+  return render(request, 'main/image_list.html', {'images': images})
+
+def image_detail(request, pk):
+  image = get_object_or_404(PhotoImage, pk=pk)
+  return render(request, 'main/image_detail.html', {'image': image})
