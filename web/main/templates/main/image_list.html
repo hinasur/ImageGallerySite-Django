@@ -1,19 +1,27 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
 {% block content %}
 {% for image in images %}
     <div class="post">
         {% if image.image %}
         <div class ="image">
-            <img src="/{{ image.image.url }}" style="width:300px;height:auto">
+            <img src="{{ static }}{{ image.image.url }}" style="width:300px;height:auto">
         </div>
         {% endif %}
+
+        {% if image.published_date %}
         <div class="date">
             {{ image.published_date }}
         </div>
+        {% endif %}
+
         <h1><a href="{% url 'image_detail' pk=image.pk %}">{{ image.title }}</a></h1>
-        <h2>test</h2>
+
         <p>{{ image.link|linebreaksbr }}</p>
     </div>
 {% endfor %}
+
+<h2><a href="{% url 'image_new' %}">新しく投稿する</a></h2>
+
 {% endblock %}

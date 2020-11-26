@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
 {% block content %}
     <div class="post">
@@ -12,7 +13,7 @@
 
         {% if image.image %}
         <div class="image">
-            <img src="/{{ image.image.url }}" style="width:150px;height:auto">
+            <img src="{{ static }}{{ image.image.url }}" style="width:150px;height:auto">
         </div>
         {% endif %}
 
