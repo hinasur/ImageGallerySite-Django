@@ -4,7 +4,7 @@ from django.utils import timezone
 from .models import Post
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import PhotoImage
-from .forms import PhotoImageForm
+from .forms import PhotoImageForm, ReviewForm
 
 # Create your views here.
 def index(request):
@@ -40,3 +40,16 @@ def image_new(request):
   else:
     form = PhotoImageForm()
   return render(request, 'main/image_new.html', {'form': form})
+
+def add_review_to_image(request, pk):
+  image = get_object_or_404(PhotoImage, pk=pk)
+  if request.method == "POST":
+    form = ReviewForm(request.POST)
+    if form.is_valid():
+      review = form.save(commit=False)
+      review.image = image
+      review.save()
+      return redirect('image_detail', pk=image.pk)
+  else:
+    form = ReviewForm()
+  return render(request, 'main/add_review_to_image.html', {'form': form})

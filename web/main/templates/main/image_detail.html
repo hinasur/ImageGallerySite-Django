@@ -20,4 +20,18 @@
         <p>{{ image.link }}</p>
         
     </div>
+
+    <hr>
+
+    <a class"btn btn-default" href="{% url 'add_review_to_image' pk=image.pk %}">Add comment</a>
+    {% for review in image.reviews.all %}
+        <div class="comments">
+            <strong>{{ review.author }}</strong>
+            <p>{{ review.content|linebreaks }}</p>
+        </div>
+    {% empty %}
+        <p>NO reviews here yet</p>
+
+    {% endfor %}
+    
 {% endblock %}

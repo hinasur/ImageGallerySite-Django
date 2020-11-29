@@ -41,3 +41,9 @@ class PhotoImage(models.Model):
     def publish(self):
         self.published_date = timezone.now()
         self.save()
+
+class Review(models.Model):
+    image = models.ForeignKey(PhotoImage, on_delete=models.CASCADE, related_name='reviews', blank=True, null=True)
+    author = models.CharField(max_length=20)
+    title = models.CharField(max_length=20)
+    content = models.TextField()

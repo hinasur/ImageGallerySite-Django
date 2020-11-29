@@ -7,4 +7,5 @@ urlpatterns = [
   path('imagegallery/', views.image_list, name='image_list'),
   path('imagegallery/<int:pk>/', views.image_detail, name='image_detail'),
   path('imagegallery/new/', views.image_new, name='image_new'),
+  path('imagegallery/<int:pk>/comment/', views.add_review_to_image, name='add_review_to_image'),
 ]
